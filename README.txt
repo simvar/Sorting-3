@@ -5,3 +5,5 @@
 	Demonstruojamos ateitije realizuojamos galimybes.
 	
 1.01: Itrauktas Piramidini (kruvos) rušiavimo algoritma.
+
+1.02: Itrauktas Spartuji rušiavimo algoritma (angla quick sort).
