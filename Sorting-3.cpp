@@ -13,6 +13,10 @@ template <class T> void heapSort(T *, int, int, int&, int&);
 template <class T> int partition(T * , int, int, int&, int&);
 template <class T> void quicksort(T * , int, int, int&, int&);
 //-----------------------
+template <class T> void mergesort(T *,T *, int, int , int&, int&);
+template <class T> void merge(T *,T *, int, int, int, int&, int&);
+//-----------------------
+
 using namespace std;
 int main(int argc, char *argv[])
 {
@@ -73,7 +77,7 @@ int main(int argc, char *argv[])
         else if (r==3) bubble(a,0,N-1,L,S);
              else if (r==4) heapSort(a,0,N-1,L,S);
                   else if (r==5) quicksort(a,0,N-1,L,S);
-                       else if (r==6) cout<<"Nebaigta"<<endl;
+                       else if (r==6) mergesort(a,b,0,N-1,L,S);
                   else cout<<"Neteisingai nurodytas rusiavimo budas"<< endl;
       
     cout << "Surusiuotas skaiciu masyvas yra:" << endl;
@@ -206,8 +210,6 @@ void heapSort(T a[], int l, int r, int &L, int &S)
     }
     return;
 }
-//-------------------------------------------------------------
-//-------------------------------------------------------------
 //-------------------------------------------------------  
 //Spartuji rušiavimo algoritma (angla quick sort).
 //-------------------------------------------------------
@@ -250,4 +252,63 @@ void quicksort(T a[], int l, int r, int &L, int &S )
         quicksort(a, j+1, r,L,S);
     }
 }
+//-------------------------------------------------------
+//Suliejimo(salajos) rušiavimo algoritma (angl. merge sort).
+//-------------------------------------------------------
+template <class T>
+void mergesort(T a[],T b[], int l, int r, int &L, int &S)
+{
+    int pivot;
+    if(l<r)
+    {
+        pivot=(l+r)/2;
+        mergesort(a,b,l,pivot,L,S);
+        mergesort(a,b,pivot+1,r,L,S);
+        merge(a,b,l,pivot,r,L,S);
+    }
+}
+template <class T>
+void merge(T a[],T b[], int l, int pivot, int r, int &L, int &S)
+{
+    int h,i,j,k;
+    h=l;
+    i=l;
+    j=pivot+1;
 
+    while((h<=pivot)&&(j<=r))
+    {
+        if(a[h]<=a[j])
+        {
+            b[i]=a[h];
+            h++;
+            
+        }
+        else
+        {
+            b[i]=a[j];
+            j++;
+            L++;
+        }
+        S++;
+        i++;
+    }
+    if(h>pivot)
+    {
+        for(k=j; k<=r; k++)
+        {
+            b[i]=a[k];
+            i++;
+        }
+    }
+    else
+    {
+        for(k=h; k<=pivot; k++)
+        {
+            b[i]=a[k];
+            i++;
+        }
+        
+    }
+    S++;
+    for(k=l; k<=r; k++) a[k]=b[k];
+}
