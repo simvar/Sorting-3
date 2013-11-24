@@ -10,6 +10,9 @@ template <class T> void shiftRight(T *, int, int, int&, int& );
 template <class T> void heapify(T *, int, int, int&, int&);
 template <class T> void heapSort(T *, int, int, int&, int&);
 //-----------------------
+template <class T> int partition(T * , int, int, int&, int&);
+template <class T> void quicksort(T * , int, int, int&, int&);
+//-----------------------
 using namespace std;
 int main(int argc, char *argv[])
 {
@@ -69,7 +72,7 @@ int main(int argc, char *argv[])
     else if(r==2) insertion(a,0,N-1,L,S);
         else if (r==3) bubble(a,0,N-1,L,S);
              else if (r==4) heapSort(a,0,N-1,L,S);
-                  else if (r==5) cout<<"Nebaigta"<<endl;
+                  else if (r==5) quicksort(a,0,N-1,L,S);
                        else if (r==6) cout<<"Nebaigta"<<endl;
                   else cout<<"Neteisingai nurodytas rusiavimo budas"<< endl;
       
@@ -205,3 +208,46 @@ void heapSort(T a[], int l, int r, int &L, int &S)
 }
 //-------------------------------------------------------------
 //-------------------------------------------------------------
+//-------------------------------------------------------  
+//Spartuji rušiavimo algoritma (angla quick sort).
+//-------------------------------------------------------
+// The partition function
+template <class T>
+int partition(T a[], int l, int r, int &L, int &S)
+{
+    int pivot = a[r];
+
+    while ( l < r )
+    {
+        while ( a[l] < pivot )
+            l++;
+
+        while ( a[r] > pivot )
+            r--;
+
+        if ( a[l] == a[r] )
+            l++;
+        else if ( l < r )
+        { 
+            int tmp = a[l];
+            a[l] = a[r];
+            a[r] = tmp;
+            L++;
+        }
+        S++;
+    }
+    return r;
+}
+
+// The quicksort recursive function
+template <class T>
+void quicksort(T a[], int l, int r, int &L, int &S )
+{
+    if ( l < r )
+    {
+        int j = partition(a, l, r,L,S);        
+        quicksort(a, l, j-1,L,S);
+        quicksort(a, j+1, r,L,S);
+    }
+}
+
