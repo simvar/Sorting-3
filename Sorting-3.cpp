@@ -13,6 +13,7 @@ template <class T> void heapSort(T *, int, int, int&, int&);
 using namespace std;
 int main(int argc, char *argv[])
 {
+    int N=1000;
     int j,i,v,s,r;
     bool t=false;
     char ts;
@@ -83,7 +84,6 @@ int main(int argc, char *argv[])
     //cin>>r;
     cout << endl;
     return 0;
-}
 }
 // Sukeičia elementus vietomis
 template <class T>
